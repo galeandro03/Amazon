@@ -1,0 +1,15 @@
+table {
+    width: 65%;
+}
+table,th,td{
+    border:1px solid black;
+    text-align: center;
+}
+
+body{
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.imgw{
+    width: 6rem;
+}
