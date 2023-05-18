@@ -12,16 +12,16 @@
 <body>
 <?php
     session_start();
-    include("./header.php");
-    require'conndb.php';
+    include("./header.html");
+    require 'conndb.php';
 
 
-    if(!isset($_SESSION["id_utente"])){
-        echo "<br> Effettuare il login <br>";
-        $conn->close();
-        header("Location: login.php");
-        die();
-    }else
+    #if(!isset($_SESSION["id_utente"])){
+        #echo "<br> Effettuare il login <br>";
+        #$conn->close();
+        #header("Location: login.php");
+        #die();
+    if(!isset($_SESSION["id_utente"]))
     {
         $username=$_SESSION["username"];
         echo "<h1> Carrello di $username </h1>";
@@ -65,7 +65,7 @@
             }
             else {
                echo "<br> <h3> Nessun prodotto nel carrello </h3><br>";
-
+               echo "<a href= \"index.php\"> HOME </a>";
             }
     }
 ?>

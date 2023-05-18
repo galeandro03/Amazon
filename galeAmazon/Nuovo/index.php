@@ -12,41 +12,55 @@
 </head>
 <body>
 <?php
-    session_start();
-    include("./header.php");
-    require 'conndb.php';
-
-    if(isset($_SESSION["username"])){
-        $username=$_SESSION["username"];
-        echo "<h1> Ciao".$username."<h1>";
-    
+    include("./header.html");
+    require'conndb.php';
 ?>
-    <p>
-        <a href="logout.php">Logout </a>
-    </p>
+<h1>HOME
 
+</h1>
+<div class="container">
+    <table class="table table-bordered">
+        <tr>
+            <th>NOME</th>
+            <th>CATEGORIA</th>
+            <th>PREZZO</th>
+            <th>IMMAGINE</th>
+        </tr>
 <?php
-}else{
-?>
 
-    <h1>Login</h1>
-    <form action="./login.php" method="post">
-        <p> <b>Username </b></p>
-        <input type="text" name="username">
-        <p><b>Password </b></p>
-        <input type="password" name="pass">
-        <br>
-        <input type="submit" value="Login"></input>
-    </form>
-
-
-    <p>
-        Se non sei ancora registrato
-        <a href="registrati.php">Clicca qui </a>
-        </p>
-    
-    <?php
+    $stmt2=$conn->prepare("SELECT p.nome as nomeP, p.id as id_prodotto, p.prezzo as prezzo,p.immagine as immagine,c.nome as categoria FROM dbecommerce.prodotti p,dbecommerce.categorie c where p.id_categoria=c.id ");
+    $stmt2->execute();
+    $result2=$stmt2->get_result();
+    $conn->close();
+    if($result2->num_rows >0){
+        while($row=$result2->fetch_assoc()){
+            echo " <tr> ";
+            echo " <td> ".$row["nomeP"]." </td> ";
+            echo " <td> <b> ".$row["categoria"]."</b> </td> ";
+            echo " <td> ".$row["prezzo"]."€ </td> ";
+            echo " <td> <img src=\"./images/".$row["immagine"]."\" class=\"imgw\"></td> ";
+            ?>
+            <td>
+            <form action="add_product.php" method="POST">
+                <input name="id_prodotto" hidden value="<?php echo $row["id_prodotto"]; ?>">
+                <select name="qty" class="quantitaStyle">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                </select>
+                <button type="submit" class="btn btn-primary " name="add_to_cart">Aggiungi al carrello</button>
+            </form>
+    <td>
+            <?php
+            echo " </tr>";
+        }
+    }else {
+        echo "<br> Nessun prodotto trovato <br>";
     }
-    ?>
+?>
+    </table>
+</div>
+
+  
 </body>
 </html>

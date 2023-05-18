@@ -12,7 +12,7 @@
 </head>
 <body>
 <?php
-    include("./header.php");
+    include("./header.html");
     require'conndb.php';
 ?>
 <h1>PRODOTTI</h1>
@@ -41,7 +41,7 @@
             <td>
             <form action="add_product.php" method="POST">
                 <input name="id_prodotto" hidden value="<?php echo $row["id_prodotto"]; ?>">
-                <select name="qty">
+                <select name="qty" class="quantitaStyle">
                     <option value="1">1</option>
                     <option value="2">2</option>
                     <option value="3">3</option>
