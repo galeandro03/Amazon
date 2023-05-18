@@ -1,8 +1,9 @@
 <?php
 
 session_start();
+#isset($_SESSION['id_utente'])&& 
 
-if(isset($_SESSION['id_utente'])&& isset($_POST['add_to_cart']))
+if(isset($_POST['add_to_cart']))
 {
     $userID=$_SESSION['id_utente'];
     $prodID=$_POST['id_prodotto'];
